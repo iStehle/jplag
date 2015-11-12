@@ -1,4 +1,4 @@
-package jplag.csharp;
+package jplag.csharp4;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -9,8 +9,15 @@ import java.io.IOException;
 import jplag.StrippedProgram;
 import jplag.Structure;
 import jplag.UnicodeReader;
-import jplag.csharp.grammar.CSharpLexer;
-import jplag.csharp.grammar.CSharpParser;
+import jplag.csharp4.grammar.CSharp4Lexer;
+import jplag.csharp4.grammar.CSharp4Listener;
+import jplag.csharp4.grammar.CSharp4Parser;
+import jplag.csharp4.grammar.CSharp4Parser.Compilation_unitContext;
+
+import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 public class Parser extends jplag.Parser implements CSharpTokenConstants {
 	private Structure struct;
@@ -70,21 +77,25 @@ public class Parser extends jplag.Parser implements CSharpTokenConstants {
 	private boolean parseFile(File dir, String file) {
 		try {
 			FileInputStream fis = new FileInputStream(new File(dir, file));
+                        ANTLRInputStream input;
 			currentFile = file;
+                        input = new ANTLRInputStream(fis);
 			// Create a scanner that reads from the input stream passed to us
-			CSharpLexer lexer = new CSharpLexer(new UnicodeReader(fis, "ISO-8859-1"));
-			lexer.setFilename(file);
-			lexer.setTabSize(1);
+			CSharp4Lexer lexer = new CSharp4Lexer(input);
+                        
+                        CommonTokenStream tokens = new CommonTokenStream(lexer);
+			
 
 			// Create a parser that reads from the scanner
-			CSharpParser parser = new CSharpParser(lexer);
-			parser.setFilename(file);
-			parser.parser = this;//Added by emeric 22.01.05
-			// start parsing at the compilationUnit rule
-			parser.compilation_unit();
+			CSharp4Parser parser = new CSharp4Parser(tokens);
+			Compilation_unitContext cuc = parser.compilation_unit();
+			
 
-			// close file
-			fis.close();
+			ParseTreeWalker ptw = new ParseTreeWalker();
+			for (int i = 0; i < cuc.getChildCount(); i++) {
+				ParseTree pt = cuc.getChild(i);
+				ptw.walk(new JplagCSharp4Listener(this), pt);
+			}
 		} catch (Exception e) {
 			getProgram().addError("  Parsing Error in '" + file + "':\n  " + e.toString() + "\n");
 			return false;
@@ -102,7 +113,11 @@ public class Parser extends jplag.Parser implements CSharpTokenConstants {
 		// 		       " text: '"+tok.getText()+"'");
 	}
 
-	public void add(int type, CSharpParser p) {
-		add(type, p.getLastConsumedToken());
+	//public void add(int type, CSharpParser p) {
+	//	add(type, p.getLastConsumedToken());
+	//}
+        public void add(int type, org.antlr.v4.runtime.Token tok) {
+		struct.addToken(new CSharpToken(type, (currentFile == null ? "null" : currentFile), tok.getLine(), tok.getStartIndex(), 
+				tok.getText().length()));
 	}
 }

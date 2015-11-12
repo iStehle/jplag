@@ -1,4 +1,4 @@
-package jplag.csharp;
+package jplag.csharp4;
 
 public interface CSharpTokenConstants extends jplag.TokenConstants {
   final static int FILE_END = 0;

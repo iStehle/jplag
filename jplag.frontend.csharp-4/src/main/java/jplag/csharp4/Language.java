@@ -1,4 +1,4 @@
-package jplag.csharp;
+package jplag.csharp4;
 
 import java.io.File;
 
@@ -56,10 +56,10 @@ public class Language implements jplag.Language {
 	}
 
 	public int noOfTokens() {
-		return jplag.csharp.CSharpToken.numberOfTokens();
+		return jplag.csharp4.CSharpToken.numberOfTokens();
 	}
 
 	public String type2string(int type) {
-		return jplag.csharp.CSharpToken.type2string(type);
+		return jplag.csharp4.CSharpToken.type2string(type);
 	}
 }
