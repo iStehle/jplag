@@ -34,7 +34,7 @@ public interface CSharpTokenConstants extends jplag.TokenConstants {
   final static int _LOCK =            26;
   final static int _USING =           27;
   final static int _TRY =             28;
-  final static int _CATCH =           29;
+  final static int _CATCH_BEGIN =           29;
   final static int _FINALLY =         30;
   final static int _NAMESPACE_BEGIN = 31;
   final static int _NAMESPACE_END =   32;
@@ -59,6 +59,7 @@ public interface CSharpTokenConstants extends jplag.TokenConstants {
   final static int _END_IF =          51;
   final static int _UNSAFE =          52;
   final static int _FIXED =           53;
+  final static int _CATCH_END =           54;
 
-  final static int NUM_DIFF_TOKENS = 54;
+  final static int NUM_DIFF_TOKENS = 55;
 }

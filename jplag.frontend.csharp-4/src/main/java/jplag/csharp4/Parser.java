@@ -42,7 +42,7 @@ public class Parser extends jplag.Parser implements CSharpTokenConstants {
 					while (struct.tokens[token] != null && struct.tokens[token].getLine() == lineNr) {
 						if (!first)
 							System.out.println();
-						jplag.Token tok = struct.tokens[token];
+						CSharpToken tok = (CSharpToken) struct.tokens[token];
 						System.out.print(CSharpToken.type2string(tok.type) + " (" + tok.getLine() + "," + tok.getColumn() + ","
 								+ tok.getLength() + ")\t");
 						first = false;
@@ -65,7 +65,7 @@ public class Parser extends jplag.Parser implements CSharpTokenConstants {
 		struct = new Structure();
 		errors = 0;
 		for (int i = 0; i < files.length; i++) {
-			//			getProgram().print(null, "Parsing file " + files[i] + "\n");
+						getProgram().print(null, "Parsing file " + files[i] + "\n");
 			if (!parseFile(dir, files[i]))
 				errors++;
 			struct.addToken(new CSharpToken(FILE_END, files[i], -1, -1, -1));
@@ -109,8 +109,8 @@ public class Parser extends jplag.Parser implements CSharpTokenConstants {
 			return;
 		}
 		struct.addToken(new CSharpToken(type, currentFile, tok.getLine(), tok.getColumn(), tok.getText().length()));
-		//     System.out.println("type: " + CSharpToken.type2string(type) +
-		// 		       " text: '"+tok.getText()+"'");
+		     System.out.println("type: " + CSharpToken.type2string(type) +
+		 		       " text: '"+tok.getText()+"'");
 	}
 
 	//public void add(int type, CSharpParser p) {

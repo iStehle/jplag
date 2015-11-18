@@ -48,7 +48,8 @@ public class CSharpToken extends jplag.Token implements CSharpTokenConstants {
     case _LOCK:                    return "LOCK      ";
     case _USING:                   return "USING     ";
     case _TRY:                     return "TRY       ";
-    case _CATCH:                   return "CATCH     ";
+    case _CATCH_BEGIN:             return "CATCH {   ";
+    case _CATCH_END:               return "CATCH }   ";
     case _FINALLY:                 return "FINALLY   ";
     case _NAMESPACE_BEGIN:         return "NAMESPACE{";
     case _NAMESPACE_END:           return "NAMESPACE}";
