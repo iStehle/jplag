@@ -34,6 +34,7 @@ public abstract class Options {
 			"java11", "jplag.javax.Language",
 			"c/c++", "jplag.cpp.Language",
 			"c#-1.2", "jplag.csharp.Language",
+                        "c#-4", "jplag.csharp4.Language",
 			"char", "jplag.chars.Language",
 			"text", "jplag.text.Language",
 			"scheme", "jplag.scheme.Language",

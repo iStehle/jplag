@@ -219,6 +219,11 @@
 				<artifactId>csharp-1.2</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
+                        <dependency>
+				<groupId>edu.kit.ipd.jplag</groupId>
+				<artifactId>csharp-4</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
 			<dependency>
 				<groupId>edu.kit.ipd.jplag</groupId>
 				<artifactId>cpp</artifactId>
